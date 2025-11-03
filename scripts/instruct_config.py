@@ -279,7 +279,7 @@ def get_training_json(train_info: dict) -> dict:
     train_request["save_before_remaining_time"] = 3
     train_request["adjust_batch_size"] = False
     train_request["periodic_save_steps"] = 500
-    train_request["checking_step"] = 80
+    train_request["checking_step"] = 70
 
     if param_nums < 1_000_000_000:
         train_request["min_steps"] = max(

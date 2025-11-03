@@ -13,6 +13,7 @@ import subprocess
 import sys
 import uuid
 import re
+import time 
 from datetime import datetime, timezone, timedelta
 
 import yaml
@@ -200,6 +201,7 @@ def run_training(
         output_dir = extract_value_from_cmd(train_cmd, "output_dir")
         if os.path.exists(os.path.join(output_dir, "success.txt")):
             return True
+        time.sleep(5)
     return False
 
 
@@ -294,7 +296,7 @@ def main():
     )
 
     parser.add_argument(
-        "--reg-ratio", type=float, help="Reg ratio to use for training", default=0.95239
+        "--reg-ratio", type=float, help="Reg ratio to use for training", default=1.0002456
     )
 
     args = parser.parse_args()
@@ -483,9 +485,11 @@ def main():
                 args.task_type,
                 args.expected_repo_name,
             )
+            time.sleep(5)
             if not success:
                 print(f"Training failed for task {args.task_id} at count={count}", flush=True)
                 break 
+        
         count += 1
 
     if not os.path.exists(submission_dir) or len(os.listdir(submission_dir)) < 2:

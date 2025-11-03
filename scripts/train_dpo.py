@@ -285,6 +285,11 @@ def main():
     # remove the success file if it exists
     if is_main_process(LOCAL_RANK) and os.path.exists(success_file):
         os.remove(success_file)
+    
+    checking_step = train_request["checking_step"]
+    if checking_step > 0.6 * total_steps_per_epoch:
+        checking_step = int(0.6 * total_steps_per_epoch)
+    
 
     trainer = DPOTrainer(
         model=model,
@@ -301,7 +306,7 @@ def main():
                 training_args.output_dir,
                 train_request["model_name"],
                 max_steps,
-                checking_step=train_request["checking_step"],
+                checking_step=checking_step,
                 total_steps_all_epochs=total_steps_all_epochs,
                 end_time=train_request["end_time"],
                 checking_mode=train_request.get("checking_mode", "none")

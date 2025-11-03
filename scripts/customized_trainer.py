@@ -99,7 +99,7 @@ class CustomEvalSaveCallback(TrainerCallback):
             # n * time_so_far + (time_so_far + total_remaining_training_time) = total_remaining_time
             # time_so_far + total_remaining_training_time is the time it takes to finish the training (need to estimate the eval time and save time, assuming this is 15 minutes)
             # assuming time_so_far is + 5 minutes, just in case the checking step takes more time than expected
-            max_var_time_sofar = 4 * 60
+            max_var_time_sofar = 3 * 60
             n = (total_remaining_time - (time_so_far + total_remaining_training_time + 15 * 60)) / (time_so_far + max_var_time_sofar) # 300 = 5 minutes, assume that it extra time would be more or less 5 minutes
             n = int(n)
             my_state["check_details"] = {
@@ -134,7 +134,7 @@ class CustomEvalSaveCallback(TrainerCallback):
             
             if is_main_process(LOCAL_RANK):
                 set_state(my_state)
-                # print(log_content, flush=True)            
+                print(log_content, flush=True)            
             return control
     
         elif state.global_step == self.checking_step and self.checking_mode == "second_time": # at second time, we don't estimate the training time again, just save the current_loss
