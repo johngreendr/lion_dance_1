@@ -296,7 +296,7 @@ def main():
     )
 
     parser.add_argument(
-        "--reg-ratio", type=float, help="Reg ratio to use for training", default=1.09221333333333
+        "--reg-ratio", type=float, help="Reg ratio to use for training", default=1.13522666666666
     )
 
     args = parser.parse_args()
