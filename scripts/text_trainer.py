@@ -296,7 +296,7 @@ def main():
     )
 
     parser.add_argument(
-        "--reg-ratio", type=float, help="Reg ratio to use for training", default=0.93281
+        "--reg-ratio", type=float, help="Reg ratio to use for training", default=1.00289643
     )
 
     args = parser.parse_args()
@@ -446,7 +446,7 @@ def main():
                     # first find from runs the best loss
                     c_train_info["train_request"]["checking_mode"] = "none"
                     index = np.argmin([run["current_loss"] for run in state["runs"]])
-                    # print(f"Best run index: {index}, loss: {state['runs'][index]['current_loss']}; lr={state['lrs'][index]}", flush=True)
+                    print(f"BL;{index};{state['runs'][index]['current_loss']}; {state['lrs'][index]}", flush=True)
                     train_cmd = state["runs"][index]["train_cmd"]  #replace_args_in_cmd(train_cmd, "learning_rate", str(state["lrs"][index]))
                     final_output_dir = state["runs"][index]["output_dir"]
                     state["mode"] = "finish"
