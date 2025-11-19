@@ -287,8 +287,8 @@ def main():
         os.remove(success_file)
     
     checking_step = train_request["checking_step"]
-    if checking_step > 0.6 * total_steps_per_epoch:
-        checking_step = int(0.6 * total_steps_per_epoch)
+    if checking_step >= total_steps_per_epoch:
+        checking_step = total_steps_per_epoch - 2
     
 
     trainer = DPOTrainer(
