@@ -241,7 +241,7 @@ def delete_poor_checkpoints(train_runs: list[dict]):
 
 
 def get_log_scale(task_type: str):
-    rank = 10
+    rank = 11
     reg_value = 0.27 * rank / 12
     log_scale_map = {
         TaskType.INSTRUCTTEXTTASK.value: 0.18 + reg_value,
@@ -298,7 +298,7 @@ def main():
     )
 
     parser.add_argument(
-        "--reg-ratio", type=float, help="Reg ratio to use for training", default=0.926219999999999
+        "--reg-ratio", type=float, help="Reg ratio to use for training", default=0.90626
     )
 
     args = parser.parse_args()
