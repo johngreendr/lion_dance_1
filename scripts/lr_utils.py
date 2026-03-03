@@ -66,9 +66,9 @@ def extend_learning_rates(
 
 
 def test():
-    lr = 0.00014523947500000002
+    lr = 1e-5
     for n in [3,4,5, 6]:
-        lrs = extend_learning_rates(lr, n)
+        lrs = extend_learning_rates(lr, n, log_range=0.4)
         print(lrs)
         assert lrs[0] == lr
 
