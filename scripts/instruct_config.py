@@ -188,6 +188,12 @@ def get_run_cmd(config: dict, gpu_nums: int):
     return template
 
 
+def get_checking_step(param_nums: int, hours_to_complete) -> int:
+    if param_nums <= 3_000_000_000 and hours_to_complete >= 2: # small model should check more often
+        return 140
+    return 70
+
+
 def get_training_json(train_info: dict) -> dict:
     model_name = train_info["model_name"]
     model_path = train_info["model_path"]
@@ -279,7 +285,7 @@ def get_training_json(train_info: dict) -> dict:
     train_request["save_before_remaining_time"] = 3
     train_request["adjust_batch_size"] = False
     train_request["periodic_save_steps"] = 500
-    train_request["checking_step"] = 70
+    train_request["checking_step"] = get_checking_step(param_nums, train_info["hours_to_complete"])
 
     if param_nums < 1_000_000_000:
         train_request["min_steps"] = max(
